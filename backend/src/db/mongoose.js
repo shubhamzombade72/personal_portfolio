@@ -1,5 +1,7 @@
 const mongoose = require("mongoose");
 
+const { getEnv } = require("../config/env");
+
 // Serverless-friendly global cache
 let cached = global.__MONGOOSE_CONN__;
 if (!cached) {
@@ -9,27 +11,28 @@ if (!cached) {
 async function connectToDatabase() {
   if (cached.conn) return cached.conn;
 
-  const uri = process.env.MONGODB_URI;
-
-  if (!uri) {
-    throw new Error("❌ MONGODB_URI is not defined in environment variables");
-  }
-
   if (!cached.promise) {
+    const uri = getEnv("MONGODB_URI");
+
     mongoose.set("strictQuery", true);
 
     const debug = String(process.env.DEBUG_DB || "").toLowerCase() === "true";
     if (debug) {
-      console.log("[db] Connecting to MongoDB...");
+      // eslint-disable-next-line no-console
+      console.log(`[db] Connecting to MongoDB: ${uri}`);
     }
 
     cached.promise = mongoose
       .connect(uri)
       .then((mongooseInstance) => {
-        console.log("[db] MongoDB connected");
+        if (debug) {
+          // eslint-disable-next-line no-console
+          console.log(`[db] MongoDB connected. db=${mongooseInstance.connection.name}`);
+        }
         return mongooseInstance;
       })
       .catch((err) => {
+        // eslint-disable-next-line no-console
         console.error("[db] MongoDB connection failed", err);
         throw err;
       });
