@@ -10,7 +10,11 @@ if (!cached) {
 
 async function connectToDatabase() {
   if (cached.conn) return cached.conn;
+const uri = process.env.MONGODB_URI;
 
+  if (!uri) {
+    throw new Error("mongodb+srv://shubham:Shubham@123@123@cluster0.oerwf.mongodb.net/?appName=Cluster0");
+  }
   if (!cached.promise) {
     const uri = getEnv("MONGODB_URI");
 
