@@ -22,8 +22,16 @@ async function connectToDatabase() {
       console.log(`[db] Connecting to MongoDB: ${uri}`);
     }
 
+    const clientOptions = {
+      serverApi: {
+        version: "1",
+        strict: true,
+        deprecationErrors: true,
+      },
+    };
+
     cached.promise = mongoose
-      .connect(uri)
+      .connect(uri, clientOptions)
       .then((mongooseInstance) => {
         if (debug) {
           // eslint-disable-next-line no-console

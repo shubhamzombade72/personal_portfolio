@@ -33,6 +33,15 @@ function errorHandler(err, req, res, next) {
   // eslint-disable-next-line no-console
   if (statusCode >= 500) console.error(err);
 
+  // Return specific error details if debugging is enabled
+  if (process.env.DEBUG_ERRORS === "true" || process.env.NODE_ENV === "development") {
+    return res.status(statusCode).json({
+      error: message,
+      debug_error: err.message,
+      stack: err.stack
+    });
+  }
+
   return res.status(statusCode).json({ error: message });
 }
 
