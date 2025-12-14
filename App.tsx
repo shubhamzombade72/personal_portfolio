@@ -24,33 +24,34 @@ const ScrollToTop = () => {
 };
 
 const AppContent: React.FC = () => {
-    const location = useLocation();
-    const isAdminRoute = location.pathname.startsWith('/admin');
+  const location = useLocation();
+  const isAdminRoute = location.pathname.startsWith('/admin');
 
-    return (
-        <div className="flex flex-col min-h-screen bg-slate-50 dark:bg-slate-950 text-slate-900 dark:text-slate-100 transition-colors duration-300">
-          {!isAdminRoute && <Navbar />}
-          <main className={!isAdminRoute ? "flex-grow pt-16" : "flex-grow"}>
-            <Routes>
-              <Route path="/" element={<Home />} />
-              <Route path="/projects" element={<Projects />} />
-              <Route path="/skills" element={<Skills />} />
-              <Route path="/about" element={<About />} />
-              <Route path="/contact" element={<Contact />} />
-              <Route path="/admin/login" element={<AdminLogin />} />
-              <Route 
-                path="/admin/dashboard" 
-                element={
-                  <ProtectedRoute>
-                    <AdminDashboard />
-                  </ProtectedRoute>
-                } 
-              />
-            </Routes>
-          </main>
-          {!isAdminRoute && <Footer />}
-        </div>
-    );
+  return (
+    <div className="flex flex-col min-h-screen bg-slate-50 dark:bg-slate-950 text-slate-900 dark:text-slate-100 transition-colors duration-300">
+      {!isAdminRoute && <Navbar />}
+      <main className={!isAdminRoute ? "flex-grow pt-16" : "flex-grow"}>
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/projects" element={<Projects />} />
+          <Route path="/skills" element={<Skills />} />
+          <Route path="/about" element={<About />} />
+          <Route path="/contact" element={<Contact />} />
+          <Route path="/admin/login" element={<AdminLogin />} />
+          <Route path="/admin" element={<AdminLogin />} />
+          <Route
+            path="/admin/dashboard"
+            element={
+              <ProtectedRoute>
+                <AdminDashboard />
+              </ProtectedRoute>
+            }
+          />
+        </Routes>
+      </main>
+      {!isAdminRoute && <Footer />}
+    </div>
+  );
 };
 
 const App: React.FC = () => {

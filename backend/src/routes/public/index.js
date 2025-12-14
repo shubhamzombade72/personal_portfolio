@@ -14,6 +14,7 @@ router.use("/about", aboutRoutes);
 router.use("/skills", skillsRoutes);
 router.use("/projects", projectsRoutes);
 router.use("/experience", experienceRoutes);
+router.use("/certifications", require("./certifications"));
 
 router.use("/messages", messagesRoutes);
 router.use("/contact", messagesRoutes);

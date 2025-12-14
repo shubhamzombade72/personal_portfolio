@@ -5,7 +5,7 @@
   "main": "api/index.js",
   "scripts": {
     "dev": "node src/devServer.js",
-    "start": "node src/devServer.js"
+    "start": "node server.js"
   },
   "engines": {
     "node": ">=18"

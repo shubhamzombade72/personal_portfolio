@@ -20,5 +20,6 @@ router.use("/skills", skillsRoutes);
 router.use("/projects", projectsRoutes);
 router.use("/experience", experienceRoutes);
 router.use("/messages", messagesRoutes);
+router.use("/certifications", require("./certifications"));
 
 module.exports = router;

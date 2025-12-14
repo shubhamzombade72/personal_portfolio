@@ -26,6 +26,7 @@ const homeCreateSchema = z.object({
 });
 
 const aboutCreateSchema = z.object({
+  name: z.string().min(1).optional(),
   description: z.string().min(1),
   profileImageUrl: z.string().min(1),
   summary: z.string().min(1),
@@ -82,6 +83,15 @@ const messageUpdateSchema = z.object({
   isRead: z.boolean()
 });
 
+const certificationCreateSchema = z.object({
+  name: z.string().min(1),
+  issuer: z.string().min(1),
+  year: z.string().min(1),
+  link: z.string().optional(),
+  order: z.number().int().optional(),
+  published: z.boolean().optional()
+});
+
 module.exports = {
   objectIdParamSchema,
   loginSchema,
@@ -93,5 +103,6 @@ module.exports = {
   projectCreateSchema,
   experienceCreateSchema,
   messageCreateSchema,
-  messageUpdateSchema
+  messageUpdateSchema,
+  certificationCreateSchema
 };

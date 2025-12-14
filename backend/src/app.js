@@ -14,7 +14,7 @@ const app = express();
 app.disable("x-powered-by");
 app.use(helmet());
 app.use(corsMiddleware);
-app.use(express.json({ limit: "1mb" }));
+app.use(express.json({ limit: "10mb" }));
 app.use(express.urlencoded({ extended: true }));
 
 // Logging (disable in Vercel if you want; harmless to keep)

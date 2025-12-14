@@ -2,6 +2,7 @@ const mongoose = require("mongoose");
 
 const AboutSchema = new mongoose.Schema(
   {
+    name: { type: String, required: true, default: "Admin" },
     description: { type: String, required: true },
     profileImageUrl: { type: String, required: true },
     summary: { type: String, required: true },
