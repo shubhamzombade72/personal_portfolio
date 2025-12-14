@@ -1,7 +1,9 @@
 const cors = require("cors");
 
 function parseOrigins() {
-  const raw = process.env.CORS_ORIGINS || "";
+  const raw = process.env.CORS_ORIGINS;
+  if (!raw) return new Set(["*"]);
+
   const origins = raw
     .split(",")
     .map((s) => s.trim())
@@ -17,14 +19,10 @@ const corsMiddleware = cors({
     // Allow non-browser requests (curl, server-to-server)
     if (!origin) return cb(null, true);
 
-    if (allowedOrigins.size === 0) {
-      // If not configured, deny browser origins by default.
-      const err = new Error("CORS is not configured (CORS_ORIGINS is empty)");
-      err.statusCode = 500;
-      return cb(err);
+    if (allowedOrigins.has("*") || allowedOrigins.has(origin)) {
+      return cb(null, true);
     }
 
-    if (allowedOrigins.has(origin)) return cb(null, true);
     const err = new Error("Not allowed by CORS");
     err.statusCode = 403;
     return cb(err);
